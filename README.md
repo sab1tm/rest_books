@@ -30,29 +30,29 @@
 **Структуры объектов**
 ```
 Book {  
-    id			long
-    name		string
-    published	string
-    authors		List<Author>
-    params		string
+	id			long
+	name		string
+	published	string
+	authors		List<Author>
+	params		string
 }
 
 Author {
-    id			long
-    firstName	string
+	id			long
+	firstName	string
 	lastName	string
 	birthDate	date
-    age			string
-    sex			string
-    books		List<Book>
+	age			string
+	sex			string
+	books		List<Book>
 }
 
 Event {
-    username	string
-    actionDt	date-time
-    method		string
-    endpoint	string
-    params		string
+	username	string
+	actionDt	date-time
+	method		string
+	endpoint	string
+	params		string
 }
 ```
 
