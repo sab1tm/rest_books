@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap  PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Book">
+
+    <typeAlias alias="Book" type="kz.sab1tm.rest_books_server.models.book.Book"/>
+    <typeAlias alias="Author" type="kz.sab1tm.rest_books_server.models.author.Author"/>
+
+    <resultMap id="get-book-result" class="Book">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="published" column="published"/>
+        <result property="authors" column="id" select="Book.findAllAuthorsByBookId"/>
+    </resultMap>
+
+    <resultMap id="get-author-result" class="Author">
+        <result property="id" column="id"/>
+        <result property="firstName" column="first_name"/>
+        <result property="lastName" column="last_name"/>
+        <result property="birthDate" column="birth_date"/>
+        <result property="sex" column="sex"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="get-book-result">
+            SELECT * FROM books ORDER BY id
+    </select>
+
+    <select id="findById" parameterClass="java.lang.Long" resultMap="get-book-result">
+        SELECT * FROM books WHERE id = #value#
+    </select>
+
+    <select id="findAllAuthorsByBookId" parameterClass="java.lang.Long" resultMap="get-author-result">
+        SELECT * FROM authors WHERE id IN
+            (SELECT author_id FROM books_authors WHERE book_id = #value#)
+	</select>
+
+    <insert id="insert" parameterClass="Book">
+        <selectKey keyProperty="id" resultClass="Long">
+            SELECT MAX(id)+1 AS id FROM books
+        </selectKey>
+        INSERT INTO books (
+            id, name, published
+        ) VALUES (
+            #id#, #name#, #published#
+        );
+    </insert>
+
+    <update id="update" parameterClass="Book">
+      UPDATE books
+      SET
+        name = #name#,
+        published = #published#
+      WHERE  id = #id#
+   </update>
+
+    <delete id="delete" parameterClass="Long">
+		DELETE FROM books WHERE id = #value#
+	</delete>
+
+</sqlMap>

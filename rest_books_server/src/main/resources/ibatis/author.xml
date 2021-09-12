@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap  PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Author">
+
+    <typeAlias alias="Book" type="kz.sab1tm.rest_books_server.models.book.Book"/>
+    <typeAlias alias="Author" type="kz.sab1tm.rest_books_server.models.author.Author"/>
+
+    <resultMap id="get-author-result" class="author">
+        <result property="id" column="id"/>
+        <result property="firstName" column="first_name"/>
+        <result property="lastName" column="last_name"/>
+        <result property="birthDate" column="birth_date"/>
+        <result property="sex" column="sex"/>
+        <result property="books" column="id" select="Author.findAllBooksByAuthorId"/>
+    </resultMap>
+
+    <resultMap id="get-book-result" class="Book">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="published" column="published"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="get-author-result">
+        SELECT * FROM authors ORDER BY id
+    </select>
+
+    <select id="findById" parameterClass="java.lang.Long" resultMap="get-author-result">
+        SELECT * FROM authors WHERE id = #value#
+    </select>
+
+    <select id="findAllBooksByAuthorId" parameterClass="java.lang.Long" resultMap="get-book-result">
+        SELECT * FROM books WHERE id IN
+            (SELECT book_id FROM books_authors WHERE author_id = #value#)
+	</select>
+
+    <insert id="insert" parameterClass="Author">
+        <selectKey keyProperty="id" resultClass="Long">
+            SELECT MAX(id)+1 AS id FROM authors
+        </selectKey>
+        INSERT INTO authors (
+            id, first_name, last_name, birth_date, sex
+        ) VALUES (
+            #id#, #firstName#, #lastName#, #birthDate#, #sex#
+        );
+    </insert>
+
+    <update id="update" parameterClass="Author">
+      UPDATE authors
+      SET
+        first_name = #firstName#,
+        last_name = #lastName#,
+        birth_date = #birthDate#,
+        sex = #sex#
+      WHERE  id = #id#
+   </update>
+
+    <delete id="delete" parameterClass="Long">
+		DELETE FROM authors WHERE id = #value#
+	</delete>
+
+</sqlMap>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap  PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Books_Authors">
+
+    <select id="findBookIdAndAuthorId" parameterClass="java.util.Map" resultClass="int">
+        SELECT COUNT(*) FROM books_authors WHERE book_id = #book_id# AND author_id=#author_id#
+    </select>
+
+    <insert id="insert" parameterClass="java.util.Map">
+        INSERT INTO books_authors (
+            book_id, author_id
+        ) VALUES (
+            #book_id#, #author_id#
+        );
+    </insert>
+
+    <delete id="delete" parameterClass="java.util.Map">
+		DELETE FROM books_authors WHERE book_id=#book_id# AND author_id=#author_id#
+	</delete>
+
+</sqlMap>
