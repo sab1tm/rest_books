@@ -30,7 +30,7 @@
 **Структуры объектов**
 ```
 Book {  
-	id			long
+	id		long
 	name		string
 	published	string
 	authors		List<Author>
@@ -38,12 +38,12 @@ Book {
 }
 
 Author {
-	id			long
+	id		long
 	firstName	string
 	lastName	string
 	birthDate	date
-	age			string
-	sex			string
+	age		string
+	sex		string
 	books		List<Book>
 }
 
