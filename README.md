@@ -1,4 +1,4 @@
-## Тестовое задание alabs.team : Java/Spring/PostgreSQL/RabbitMQ/MongoDB) ##
+## Java/Spring/PostgreSQL/RabbitMQ/MongoDB) ##
 
 #### Реализовано 2 микросервиса:
 
