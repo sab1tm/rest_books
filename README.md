@@ -35,7 +35,6 @@ Book {
 	name		string
 	published	string
 	authors		List<Author>
-	params		string
 }
 
 Author {
