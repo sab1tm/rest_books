@@ -6,6 +6,7 @@
 * **rabbitmq_mongo_server** - вычитывет ивенты из RabbitMQ и сохраняет их в MongoDB
 
 **Инициализация:**
+
 *PostgreSQL:*
 * Создать БД: rest_books
 * Создать пользователя: rest_books (пароль: rest_books)
