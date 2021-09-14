@@ -1,4 +1,4 @@
-## Java/Spring/PostgreSQL/RabbitMQ/MongoDB) ##
+## Java/Spring/iBatis/PostgreSQL/RabbitMQ/MongoDB ##
 
 #### Реализовано 2 микросервиса:
 
